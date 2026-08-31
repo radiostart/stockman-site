@@ -16,10 +16,14 @@
     line-height:1.7; word-break:keep-all; padding:48px 24px;
   }
   .wrap{max-width:720px; margin:0 auto}
+  .nav{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:14px}
   .wordmark{
     font-family:"IBM Plex Mono","SF Mono",Menlo,monospace;
-    font-weight:600; letter-spacing:4px; font-size:13px; color:var(--ink2);
+    font-weight:600; letter-spacing:4px; font-size:13px; color:var(--ink2); flex:1;
   }
+  .wordmark a{color:var(--ink2);text-decoration:none}
+  .nav .links a{color:var(--ink2);text-decoration:none;font-size:14px;margin-left:14px}
+  .nav .links a:hover{color:var(--ink)}
   h1{font-size:26px; margin:12px 0 24px}
   h2{font-size:17px; margin:28px 0 8px}
   p,li{color:var(--ink2); font-size:15px}
@@ -30,7 +34,7 @@
 </head>
 <body>
   <div class="wrap">
-    <div class="wordmark">STOCKMAN DAILY</div>
+    <div class="nav"><span class="wordmark"><a href="./index.html">STOCKMAN DAILY</a></span><span class="links"><a href="./index.html">홈</a><a href="./videos.html">영상</a><a href="./plan/index.html">매매 계획</a><a href="https://www.youtube.com/channel/UCEiqtK25yCnr9E3M0rZHDfg">YouTube ↗</a></span></div>
     <h1>개인정보처리방침</h1>
 
     <p>본 애플리케이션("Stockman", "Ai Stockman")은 개발자 본인이 제작한 모의투자 기록 영상을
