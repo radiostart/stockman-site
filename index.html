@@ -3,7 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>STOCKMAN DAILY</title>
+<title>STOCKMAN DAILY — 자율매매 모의투자 기록</title>
+<meta name="description" content="사람 개입 없이 규칙대로 매매하는 자율매매 시스템의 모의투자 기록. 매일 저녁 다음 거래일 계획을 먼저 공개하고, 결과를 청산 복기 영상으로 남깁니다.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="STOCKMAN DAILY — 자율매매 모의투자 기록">
+<meta property="og:description" content="계획은 미리, 결과는 그대로. 자율매매 시스템이 매일 계획을 먼저 공개하고 결과를 영상으로 복기하는 모의투자 기록입니다.">
+<meta property="og:url" content="https://radiostart.github.io/stockman-site/">
+<meta name="theme-color" content="#f7f8fa">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23e5303d'/%3E%3Crect x='14.75' y='6' width='2.5' height='20' fill='white'/%3E%3Crect x='10' y='11' width='12' height='10' rx='1.5' fill='white'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+KR:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#f7f8fa; --surface:#ffffff; --border:#e4e6ec;
@@ -13,41 +23,96 @@
   body{
     background:var(--bg); color:var(--ink);
     font-family:"IBM Plex Sans KR","Apple SD Gothic Neo","Noto Sans KR",sans-serif;
-    line-height:1.6; word-break:keep-all;
-    display:flex; min-height:100vh; align-items:center; justify-content:center; padding:24px;
+    line-height:1.7; word-break:keep-all; padding:48px 24px 64px;
   }
-  .card{max-width:640px; width:100%}
-  .nav{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:14px;margin-bottom:6px}
-  .wordmark{
-    font-family:"IBM Plex Mono","SF Mono",Menlo,monospace;
-    font-weight:600; letter-spacing:4px; font-size:14px; color:var(--ink2); flex:1;
-  }
-  .nav .links a{color:var(--ink2);text-decoration:none;font-size:14px;margin-left:14px;font-weight:400}
+  .wrap{max-width:720px; margin:0 auto}
+  .nav{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--border);padding-bottom:14px}
+  .wordmark{font-family:"IBM Plex Mono","SF Mono",Menlo,monospace;font-weight:600;letter-spacing:4px;font-size:13px;color:var(--ink2);flex:1}
+  .nav .links a{color:var(--ink2);text-decoration:none;font-size:14px;margin-left:14px}
   .nav .links a:hover{color:var(--ink)}
-  h1{font-size:34px; font-weight:700; margin:14px 0 6px}
-  h1 .num{font-family:"IBM Plex Mono",monospace; color:var(--up)}
-  p{color:var(--ink2); margin-top:10px}
-  .panel{
-    background:var(--surface); border:1px solid var(--border); border-radius:12px;
-    padding:28px 32px; margin-top:28px;
-  }
-  a{color:var(--ink); font-weight:600}
-  .foot{margin-top:28px; font-size:13px; color:var(--ink3)}
-  .foot a{color:var(--ink3); font-weight:400}
+
+  h1{font-size:clamp(26px,5.5vw,33px);line-height:1.4;font-weight:700;margin-top:40px}
+  h1 em{font-style:normal;color:var(--up)}
+  .lead{color:var(--ink2);font-size:16px;margin-top:16px;max-width:60ch}
+
+  .ovl{font-size:12px;letter-spacing:3px;font-weight:600;color:var(--ink3);margin-top:48px}
+
+  .steps{display:grid;gap:18px;margin-top:14px}
+  .step{border-top:1px solid var(--border);padding-top:14px}
+  .step .n{font-family:"IBM Plex Mono",Menlo,monospace;font-size:12px;letter-spacing:1px;color:var(--ink3)}
+  .step h2{font-size:16px;font-weight:600;margin-top:6px}
+  .step p{font-size:14px;color:var(--ink2);margin-top:6px;line-height:1.65}
+  @media(min-width:640px){.steps{grid-template-columns:repeat(3,1fr);gap:24px}}
+
+  .pull{border-left:2px solid var(--ink);padding:2px 0 2px 16px;margin-top:28px;font-size:15px;color:var(--ink2);max-width:56ch}
+
+  .ctas{display:grid;gap:14px;margin-top:48px}
+  @media(min-width:560px){.ctas{grid-template-columns:1fr 1fr}}
+  a.cta{display:block;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px 24px;text-decoration:none;transition:border-color .15s}
+  a.cta:hover{border-color:var(--ink3)}
+  .cta .k{font-family:"IBM Plex Mono",Menlo,monospace;font-size:11px;letter-spacing:2px;color:var(--ink3)}
+  .cta strong{display:block;font-size:16.5px;font-weight:600;color:var(--ink);margin-top:8px}
+  .cta span.d{display:block;font-size:13.5px;color:var(--ink2);margin-top:6px;line-height:1.6}
+
+  .rules{list-style:none;padding:0;margin-top:14px;border-bottom:1px solid var(--border)}
+  .rules li{border-top:1px solid var(--border);padding:12px 0;font-size:14.5px;color:var(--ink2);display:flex;gap:16px}
+  .rules b{color:var(--ink);font-weight:600;flex:0 0 100px}
+
+  .foot{margin-top:48px;font-size:13px;color:var(--ink3)}
+  .foot a{color:var(--ink3)}
 </style>
 </head>
 <body>
-  <main class="card">
-    <div class="nav"><span class="wordmark">STOCKMAN DAILY</span><span class="links"><a href="./plan/index.html">매매 계획</a><a href="https://www.youtube.com/channel/UCEiqtK25yCnr9E3M0rZHDfg">YouTube ↗</a></span></div>
-    <h1>자율매매 시스템이 남기는 <span class="num">기록</span></h1>
-    <p>사람이 자랑하는 채널이 아니라, 모의투자 자율매매 시스템이 스스로 남기는 담백한 운영 기록입니다.
-       매일의 청산 복기와 주간 결산을 영상으로 정리합니다.</p>
-    <div class="panel">
-      <p style="margin:0">
-        ▶ 유튜브 채널:
-        <a href="https://www.youtube.com/channel/UCEiqtK25yCnr9E3M0rZHDfg">Ai Stockman</a>
-      </p>
+  <main class="wrap">
+    <div class="nav"><span class="wordmark">STOCKMAN DAILY</span><span class="links"><a href="./plan/">매매 계획</a><a href="https://www.youtube.com/channel/UCEiqtK25yCnr9E3M0rZHDfg">YouTube ↗</a></span></div>
+
+    <h1>계획은 <em>미리</em>,<br>결과는 그대로.</h1>
+    <p class="lead">STOCKMAN은 사람 개입 없이 규칙대로 매매하는 모의투자 자율매매 시스템입니다.
+       매일 저녁 다음 거래일의 계획을 먼저 공개하고, 장이 끝나면 결과를 영상으로 복기합니다.
+       수익도 손실도 편집 없이 남습니다.</p>
+
+    <p class="ovl">매일의 순환</p>
+    <div class="steps">
+      <div class="step">
+        <div class="n">01 · 전날 저녁</div>
+        <h2>계획 공개</h2>
+        <p>다음 거래일에 매수할 후보 종목과 진입 전략을 장이 열리기 전에 이 사이트에 공개합니다.</p>
+      </div>
+      <div class="step">
+        <div class="n">02 · 거래일</div>
+        <h2>자율 실행</h2>
+        <p>공개한 계획 그대로, 사람 손을 거치지 않고 시스템이 규칙대로 매매합니다.</p>
+      </div>
+      <div class="step">
+        <div class="n">03 · 장 마감 후</div>
+        <h2>영상 복기</h2>
+        <p>청산의 판단과 결과를 데일리 쇼츠로, 한 주의 성과를 주간 결산으로 정리합니다.</p>
+      </div>
     </div>
+    <p class="pull">계획이 언제나 결과보다 먼저 공개됩니다.
+       어제의 계획과 오늘의 복기는 누구나 대조할 수 있습니다.</p>
+
+    <div class="ctas">
+      <a class="cta" href="./plan/">
+        <span class="k">PLAN →</span>
+        <strong>다음 거래일 매매 계획</strong>
+        <span class="d">매일 저녁 공개되는 후보 종목과 진입 전략. 지난 계획도 아카이브에 그대로 남습니다.</span>
+      </a>
+      <a class="cta" href="https://www.youtube.com/channel/UCEiqtK25yCnr9E3M0rZHDfg">
+        <span class="k">YOUTUBE ↗</span>
+        <strong>청산 복기 영상</strong>
+        <span class="d">매일의 청산 복기 쇼츠와 주간 결산 본편 — Ai Stockman 채널.</span>
+      </a>
+    </div>
+
+    <p class="ovl">기록 원칙</p>
+    <ul class="rules">
+      <li><b>모의투자</b><span>실제 자금이 아닌 가상 자금으로 운용합니다.</span></li>
+      <li><b>실현 손익</b><span>수수료·세금을 반영해 확정된 손익만 표기합니다.</span></li>
+      <li><b>추천 아님</b><span>특정 종목의 매수·매도 추천이 아니며, 진입·청산 가격은 공개하지 않습니다.</span></li>
+      <li><b>빠짐없는 기록</b><span>손실이 난 날도, 거래가 없던 날도 그대로 남깁니다.</span></li>
+    </ul>
+
     <p class="foot">
       특정 종목의 매수·매도 추천이 아닙니다 · 모의투자 기록입니다<br>
       <a href="./plan/">매매 계획 아카이브</a> · <a href="./privacy.html">개인정보처리방침</a>
